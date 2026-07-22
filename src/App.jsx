@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { HashRouter, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
 import MallPage from './pages/Mallpage'
 
@@ -42,13 +42,13 @@ function TravelPage() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/mall" element={<MallPage />} />
         <Route path="/travel" element={<TravelPage />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
