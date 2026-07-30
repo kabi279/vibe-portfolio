@@ -1,8 +1,9 @@
 // src/pages/MallApp.jsx
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, Gift, Star, Zap } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, Gift, Star, Zap, ShoppingCart } from 'lucide-react';
 import { mallData } from '../data/mallData';
+import { useCart } from '../context/CartContext';
 
 function MallApp() {
   // ===== 状态管理 =====
@@ -11,6 +12,9 @@ function MallApp() {
   const [isCheckedIn, setIsCheckedIn] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('全部');
   const [filteredProducts, setFilteredProducts] = useState(mallData);
+
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
 
   // ===== 签到功能 =====
   useEffect(() => {
@@ -208,24 +212,24 @@ function MallApp() {
                 cursor: 'pointer',
                 transition: 'transform 0.2s'
               }}
-              onClick={() => alert(`[Day 4 占位] 进入商品详情：${product.name}`)}
+              onClick={() => navigate(`/product/${product.id}`)}
               onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
               onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             >
-            <img 
-  src={product.image} 
-  alt={product.name}
-  style={{
-    width: '100%',
-    height: '150px',
-    objectFit: product.category === '数字权益' ? 'contain' : 'cover',
-    background: 'var(--gray-100)',
-    padding: product.category === '数字权益' ? '8px' : '0'
-  }}
-  onError={(e) => {
-    e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23f0f0f0"/%3E%3Ctext x="50" y="50" text-anchor="middle" dy=".3em" font-size="40" fill="%23ccc"%3E📦%3C/text%3E%3C/svg%3E';
-  }}
-/>
+              <img 
+                src={product.image} 
+                alt={product.name}
+                style={{
+                  width: '100%',
+                  height: '150px',
+                  objectFit: product.category === '数字权益' ? 'contain' : 'cover',
+                  background: 'var(--gray-100)',
+                  padding: product.category === '数字权益' ? '8px' : '0'
+                }}
+                onError={(e) => {
+                  e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23f0f0f0"/%3E%3Ctext x="50" y="50" text-anchor="middle" dy=".3em" font-size="40" fill="%23ccc"%3E📦%3C/text%3E%3C/svg%3E';
+                }}
+              />
               <div style={{ padding: '12px' }}>
                 <div style={{ fontSize: '14px', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '4px' }}>
                   {product.name}
@@ -283,7 +287,7 @@ function MallApp() {
         )}
       </div>
 
-      {/* ===== 底部导航 ===== */}
+      {/* ===== 底部导航（已改成跳转购物车） ===== */}
       <div style={{
         position: 'fixed',
         bottom: 0,
@@ -297,23 +301,42 @@ function MallApp() {
         borderTop: '1px solid var(--gray-200)',
         zIndex: 10
       }}>
-        {[
-          { icon: <Gift size={24} />, label: '商城', active: true },
-          { icon: <Star size={24} />, label: '会员中心' },
-          { icon: <Zap size={24} />, label: '任务' }
-        ].map((item, index) => (
-          <div key={index} style={{ 
+        <div 
+          onClick={() => navigate('/cart')}
+          style={{ 
             display: 'flex', 
             flexDirection: 'column', 
             alignItems: 'center',
-            color: item.active ? 'var(--mall-primary)' : 'var(--text-muted)',
+            color: 'var(--mall-primary)',
             cursor: 'pointer',
             padding: '4px 12px'
-          }}>
-            {item.icon}
-            <span style={{ fontSize: '11px', marginTop: '2px' }}>{item.label}</span>
-          </div>
-        ))}
+          }}
+        >
+          <ShoppingCart size={24} />
+          <span style={{ fontSize: '11px', marginTop: '2px' }}>购物车</span>
+        </div>
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center',
+          color: 'var(--text-muted)',
+          cursor: 'pointer',
+          padding: '4px 12px'
+        }}>
+          <Star size={24} />
+          <span style={{ fontSize: '11px', marginTop: '2px' }}>会员中心</span>
+        </div>
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center',
+          color: 'var(--text-muted)',
+          cursor: 'pointer',
+          padding: '4px 12px'
+        }}>
+          <Zap size={24} />
+          <span style={{ fontSize: '11px', marginTop: '2px' }}>任务</span>
+        </div>
       </div>
     </div>
   );
