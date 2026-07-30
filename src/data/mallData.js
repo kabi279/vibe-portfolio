@@ -1,10 +1,12 @@
 // src/data/mallData.js
+const image = (filename) => `${import.meta.env.BASE_URL}images/${filename}`;
+
 export const mallData = [
   // ===== 出行服务类 =====
   {
     id: 'P001',
     name: '机场贵宾厅体验券',
-    image: '/images/lounge.jpg',
+    image: image('lounge.jpg'),
     points: 800,
     price: 0.01,
     category: '出行服务',
@@ -17,7 +19,7 @@ export const mallData = [
   {
     id: 'P002',
     name: '接送机优惠券（50元）',
-    image: '/images/transfer.jpg',
+    image: image('transfer.jpg'),
     points: 300,
     price: 0.01,
     category: '出行服务',
@@ -30,7 +32,7 @@ export const mallData = [
   {
     id: 'P003',
     name: '酒店升房券',
-    image: '/images/hotel.jpg',
+    image: image('hotel.jpg'),
     points: 600,
     price: 0.01,
     category: '出行服务',
@@ -45,7 +47,7 @@ export const mallData = [
   {
     id: 'P004',
     name: '爱奇艺VIP周卡',
-    image: '/images/iqiyi.jpg',
+    image: image('iqiyi.jpg'),
     points: 150,
     price: 0.01,
     category: '数字权益',
@@ -58,7 +60,7 @@ export const mallData = [
   {
     id: 'P005',
     name: '腾讯视频VIP月卡',
-    image: '/images/tencent.jpg',
+    image: image('tencent.jpg'),
     points: 400,
     price: 0.01,
     category: '数字权益',
@@ -71,7 +73,7 @@ export const mallData = [
   {
     id: 'P006',
     name: '话费充值券（10元）',
-    image: '/images/phone.jpg',
+    image: image('phone.jpg'),
     points: 200,
     price: 0.01,
     category: '数字权益',
@@ -86,7 +88,7 @@ export const mallData = [
   {
     id: 'P007',
     name: '品牌纸巾组合包',
-    image: '/images/tissue.jpg',
+    image: image('tissue.jpg'),
     points: 100,
     price: 0.01,
     category: '生活好物',
@@ -99,7 +101,7 @@ export const mallData = [
   {
     id: 'P008',
     name: '便携登山包（20L）',
-    image: '/images/backpack.jpg',
+    image: image('backpack.jpg'),
     points: 1200,
     price: 0.01,
     category: '生活好物',
