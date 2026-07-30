@@ -1,0 +1,33 @@
+/* src/styles/tokens.css */
+:root {
+  /* 1. 间距体系 (4px 基础) */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  
+  /* 2. 圆角 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  
+  /* 3. 触控高度 (移动端友好) */
+  --touch-height: 44px;
+  
+  /* 4. 商城配色 (暖白 + 珊瑚红) */
+  --mall-primary: #FF6B6B;
+  --mall-bg: #FFF9F7;
+  --mall-text: #2D2D2D;
+  
+  /* 5. 旅游配色 (白 + 蓝绿) */
+  --travel-primary: #1ABC9C;
+  --travel-bg: #F8FFFE;
+  --travel-text: #1E2F3D;
+  
+  /* 6. 通用中性色 */
+  --gray-100: #F5F5F5;
+  --gray-300: #D1D1D1;
+  --gray-500: #999999;
+  --white: #FFFFFF;
+}
