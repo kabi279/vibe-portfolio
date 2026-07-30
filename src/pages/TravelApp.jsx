@@ -46,7 +46,7 @@ function TravelApp() {
       }}>
         <div style={{ fontSize: '48px', marginBottom: '12px' }}>🗺️</div>
         <p style={{ fontWeight: '500' }}>行程规划即将上线</p>
-        <p style={{ fontSize: '14px', marginTop: '4px' }}>期待 Day 8 的目的地数据接入</p>
+        <p style={{ fontSize: '14px', marginTop: '4px' }}>期待 Day 8 的目的地数据接入。</p>
       </div>
     </div>
   );
