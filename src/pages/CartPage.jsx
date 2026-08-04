@@ -1,12 +1,14 @@
 // src/pages/CartPage.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import ConfirmModal from '../components/ConfirmModal';
 
 function CartPage() {
   const navigate = useNavigate();
   const { cartItems, removeFromCart, updateQuantity, getTotalPoints, getTotalItems } = useCart();
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const handleCheckout = () => {
     if (cartItems.length === 0) return;
@@ -180,7 +182,7 @@ function CartPage() {
           </div>
         </div>
         <button
-          onClick={handleCheckout}
+          onClick={() => setShowConfirm(true)}
           style={{
             padding: '12px 32px',
             background: 'var(--mall-primary)',
@@ -196,6 +198,15 @@ function CartPage() {
           去结算
         </button>
       </div>
+      <ConfirmModal
+        open={showConfirm}
+        title="是否进行兑换"
+        message={`本次将消耗 ${getTotalPoints()} 积分，确认结算吗？`}
+        confirmText="是"
+        cancelText="否"
+        onConfirm={() => { setShowConfirm(false); handleCheckout(); }}
+        onCancel={() => setShowConfirm(false)}
+      />
     </div>
   );
 }

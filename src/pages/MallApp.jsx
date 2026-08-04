@@ -52,7 +52,7 @@ function MallApp() {
           </section>
           <nav className="mall-tabs" aria-label="权益分类">{categories.map((category) => <button className={selectedCategory === category ? 'active' : ''} key={category} onClick={() => setSelectedCategory(category)}>{category === ALL_CATEGORY ? '推荐' : category}</button>)}</nav>
           <section className="product-grid" aria-live="polite">{products.map((product, index) => <article className="product-card" key={product.id} onClick={() => navigate(`/product/${product.id}`)}>
-            <div className="product-image-wrap"><img src={product.image} alt={product.name} width="320" height="180" loading={index < 2 ? 'eager' : 'lazy'} fetchPriority={index < 2 ? 'high' : 'low'} decoding="async" />{index === 0 && <span className="product-ribbon"><Sparkles size={11} /> 为你推荐</span>}{product.stock <= 50 && <span className="product-stock">仅剩 {product.stock} 件</span>}</div>
+            <div className="product-image-wrap"><img src={product.image} alt={product.name} width="320" height="180" loading="eager" fetchPriority={index < 2 ? 'high' : 'auto'} decoding="async" />{index === 0 && <span className="product-ribbon"><Sparkles size={11} /> 为你推荐</span>}{product.stock <= 50 && <span className="product-stock">仅剩 {product.stock} 件</span>}</div>
             <div className="product-body"><h2>{product.name}</h2><div className="product-points">{product.points.toLocaleString()} <span>积分</span></div><div className="product-meta"><span className="product-category">{product.category}</span><span className={`level-badge ${levelTone[product.level] ?? 'silver'}`}>{product.level}</span></div></div>
           </article>)}</section>
           {products.length === 0 && <div className="mall-empty"><Gift size={30} /><p>这个分类暂时没有可兑换权益</p></div>}

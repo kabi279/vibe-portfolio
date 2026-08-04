@@ -4,6 +4,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { mallData } from '../data/mallData';
 import { useCart } from '../context/CartContext';
 import { useTasks } from '../context/TaskContext';
+import ConfirmModal from '../components/ConfirmModal';
 
 function ProductDetail() {
   const { id } = useParams();
@@ -13,6 +14,7 @@ function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [feedback, setFeedback] = useState('');
+  const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
     const found = mallData.find((item) => item.id === id);
@@ -50,8 +52,17 @@ function ProductDetail() {
       <footer style={{ position: 'fixed', right: 0, bottom: 0, left: 0, display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 20px', paddingBottom: 'calc(12px + env(safe-area-inset-bottom))', borderTop: '1px solid var(--gray-200)', background: '#fff' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><button aria-label="减少数量" onClick={() => setQuantity(Math.max(1, quantity - 1))} style={{ width: '36px', height: '36px', border: '1px solid var(--gray-200)', borderRadius: '50%', background: '#fff' }}><Minus size={16} /></button><span style={{ minWidth: '26px', textAlign: 'center', fontWeight: 700 }}>{quantity}</span><button aria-label="增加数量" disabled={quantity >= product.stock} onClick={() => setQuantity(Math.min(product.stock, quantity + 1))} style={{ width: '36px', height: '36px', border: '1px solid var(--gray-200)', borderRadius: '50%', background: quantity >= product.stock ? 'var(--gray-100)' : '#fff' }}><Plus size={16} /></button></div>
         <button onClick={handleAddToCart} disabled={product.stock <= 0} style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', gap: '8px', minHeight: '44px', padding: '12px', border: '2px solid var(--gray-200)', borderRadius: 'var(--radius-sm)', background: 'var(--gray-100)', color: 'var(--text-primary)', fontWeight: 700 }}><ShoppingCart size={20} /> 加入购物车</button>
-        <button onClick={handleBuyNow} disabled={product.stock <= 0} style={{ flex: 1, minHeight: '44px', padding: '12px', border: 0, borderRadius: 'var(--radius-sm)', background: 'var(--mall-primary)', color: '#fff', fontWeight: 700 }}>立即兑换</button>
+        <button onClick={() => setShowConfirm(true)} disabled={product.stock <= 0} style={{ flex: 1, minHeight: '44px', padding: '12px', border: 0, borderRadius: 'var(--radius-sm)', background: 'var(--mall-primary)', color: '#fff', fontWeight: 700 }}>立即兑换</button>
       </footer>
+      <ConfirmModal
+        open={showConfirm}
+        title="是否进行兑换"
+        message={`本次将消耗 ${product.points * quantity} 积分，确认兑换「${product.name}」吗？`}
+        confirmText="是"
+        cancelText="否"
+        onConfirm={() => { setShowConfirm(false); handleBuyNow(); }}
+        onCancel={() => setShowConfirm(false)}
+      />
     </main>
   );
 }
