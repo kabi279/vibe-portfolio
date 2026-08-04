@@ -1,16 +1,39 @@
-# React + Vite
+﻿# Vibe Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+这是一个围绕会员运营和旅行体验制作的 React + Vite 作品集 Demo，包含两个可交互项目：
 
-Currently, two official plugins are available:
+- `#/mall`：会员权益商城，支持积分、签到、权益详情、购物车、模拟兑换和任务中心。
+- `#/travel`：AI 旅游助手，支持上海、杭州、成都三城，1-5 天、预算、同行人和兴趣偏好输入。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 本地运行
 
-## React Compiler
+```bash
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+构建生产版本：
 
-## Expanding the Oxlint configuration
+```bash
+npm run build
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+如果当前 Windows 环境的默认 Vite 配置加载器被沙箱拦截，可以使用：
+
+```bash
+npm run build -- --configLoader native
+```
+
+## 旅游助手主路径
+
+1. 选择目的地、天数、预算、同行人和兴趣。
+2. 生成逐日行程，结果会展示每个地点的匹配理由、时段和预算。
+3. 用快捷问题切换雨天、低预算、亲子或少走路偏好。
+4. 用循环箭头替换同城同时间段的地点，预算会同步计算。
+5. 保存到本机，或复制包含日期、城市和作品链接的分享摘要。
+
+推荐引擎位于 `src/utils/generateItinerary.js`，数据位于 `src/data/travelData.js`。当前版本使用本地 JSON 数据和规则评分，离线可用，不需要登录、付款或 API Key；后续可在 `generateTravelResponse` 接入真实模型适配层。
+
+## 验收范围
+
+已覆盖三城市的 1-5 天排期、地点去重、预算校验、雨天/低预算/少走路规则、保存和替换状态。商城的购物车和任务上下文也对 localStorage 异常、库存为 0 和数量边界做了保护。

@@ -1,94 +1,76 @@
-// src/context/CartContext.jsx
-import React, { createContext, useState, useEffect, useContext } from 'react';
+﻿import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-const CartContext = createContext();
+const CartContext = createContext(null);
 
-export const CartProvider = ({ children }) => {
-  // 直接从 localStorage 同步初始化
-  const [cartItems, setCartItems] = useState(() => {
-    const savedCart = localStorage.getItem('mall_cart');
-    if (savedCart) {
-      try {
-        return JSON.parse(savedCart);
-      } catch (e) {
-        return [];
-      }
-    }
+function readCart() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('mall_cart') || '[]');
+    if (!Array.isArray(saved)) return [];
+    return saved
+      .filter((item) => item && item.id && Number(item.stock) > 0)
+      .map((item) => ({ ...item, quantity: Math.max(1, Math.min(Number(item.quantity) || 1, Number(item.stock))) }));
+  } catch {
     return [];
-  });
+  }
+}
 
-  // 保存到 localStorage（每次 cartItems 变化时执行）
+export function CartProvider({ children }) {
+  const [cartItems, setCartItems] = useState(readCart);
+
   useEffect(() => {
     localStorage.setItem('mall_cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // 添加商品到购物车
-  const addToCart = (product, quantity = 1) => {
-    setCartItems(prev => {
-      const existing = prev.find(item => item.id === product.id);
+  const addToCart = useCallback((product, quantity = 1) => {
+    const stock = Number(product?.stock) || 0;
+    if (!product?.id || stock <= 0) return false;
+    const requested = Math.max(1, Number(quantity) || 1);
+    setCartItems((prev) => {
+      const existing = prev.find((item) => item.id === product.id);
       if (existing) {
-        const newQty = Math.min(existing.quantity + quantity, product.stock);
-        return prev.map(item =>
-          item.id === product.id ? { ...item, quantity: newQty } : item
-        );
-      } else {
-        return [...prev, { ...product, quantity: Math.min(quantity, product.stock) }];
+        const nextQuantity = Math.min(existing.quantity + requested, stock);
+        return prev.map((item) => item.id === product.id ? { ...item, ...product, quantity: nextQuantity } : item);
       }
+      return [...prev, { ...product, quantity: Math.min(requested, stock) }];
     });
-  };
+    return true;
+  }, []);
 
-  // 从购物车移除商品
-  const removeFromCart = (productId) => {
-    setCartItems(prev => prev.filter(item => item.id !== productId));
-  };
+  const removeFromCart = useCallback((productId) => setCartItems((prev) => prev.filter((item) => item.id !== productId)), []);
 
-  // 更新商品数量
-  const updateQuantity = (productId, newQuantity) => {
-    setCartItems(prev =>
-      prev.map(item => {
-        if (item.id === productId) {
-          const qty = Math.max(1, Math.min(newQuantity, item.stock));
-          return { ...item, quantity: qty };
-        }
-        return item;
-      })
-    );
-  };
+  const updateQuantity = useCallback((productId, newQuantity) => {
+    setCartItems((prev) => prev.flatMap((item) => {
+      if (item.id !== productId) return [item];
+      const stock = Number(item.stock) || 0;
+      const quantity = Number(newQuantity);
+      if (stock <= 0 || !Number.isFinite(quantity) || quantity <= 0) return [];
+      return [{ ...item, quantity: Math.max(1, Math.min(Math.floor(quantity), stock)) }];
+    }));
+  }, []);
 
-  // 清空购物车
-  const clearCart = () => {
-    setCartItems([]);
-  };
+  const clearCart = useCallback(() => setCartItems([]), []);
+  const totals = useMemo(() => cartItems.reduce((result, item) => ({
+    points: result.points + Number(item.points || 0) * item.quantity,
+    items: result.items + item.quantity,
+  }), { points: 0, items: 0 }), [cartItems]);
+  const getTotalPoints = useCallback(() => totals.points, [totals.points]);
+  const getTotalItems = useCallback(() => totals.items, [totals.items]);
 
-  // 计算总积分
-  const getTotalPoints = () => {
-    return cartItems.reduce((total, item) => total + item.points * item.quantity, 0);
-  };
+  const value = useMemo(() => ({
+    cartItems,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    clearCart,
+    getTotalPoints,
+    getTotalItems,
+  }), [cartItems, addToCart, removeFromCart, updateQuantity, clearCart, getTotalPoints, getTotalItems]);
 
-  // 计算总商品数
-  const getTotalItems = () => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
-  };
-
-  return (
-    <CartContext.Provider value={{
-      cartItems,
-      addToCart,
-      removeFromCart,
-      updateQuantity,
-      clearCart,
-      getTotalPoints,
-      getTotalItems
-    }}>
-      {children}
-    </CartContext.Provider>
-  );
-};
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+}
 
 export const useCart = () => {
   const context = useContext(CartContext);
-  if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
-  }
+  if (!context) throw new Error('useCart must be used within CartProvider');
   return context;
 };

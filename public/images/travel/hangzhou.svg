@@ -1,0 +1,12 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Hangzhou lake illustration</title><desc id="desc">A calm illustration of West Lake, hills and a tea house.</desc>
+  <rect width="1200" height="700" fill="#edf6f2"/>
+  <circle cx="970" cy="130" r="64" fill="#ffe7af"/>
+  <path d="M0 380 L180 175 330 350 505 120 680 356 850 165 1200 390 V700 H0Z" fill="#a8c8ba"/>
+  <path d="M0 460 C220 405 365 500 565 445 C745 395 1005 425 1200 465 V700 H0Z" fill="#9dc9cf"/>
+  <path d="M0 545 C225 490 450 585 690 525 C880 480 1020 525 1200 505 V700 H0Z" fill="#76aeb7"/>
+  <g fill="#8f6f4d"><path d="M750 455 h210 l-28 -108 H778Z"/><path d="M758 346 l98 -80 101 80z"/><rect x="800" y="390" width="22" height="65" fill="#e8d7af"/><rect x="895" y="390" width="22" height="65" fill="#e8d7af"/></g>
+  <g fill="#f5de9c"><circle cx="235" cy="455" r="13"/><circle cx="286" cy="480" r="10"/><circle cx="1030" cy="468" r="12"/><circle cx="1090" cy="445" r="9"/></g>
+  <text x="82" y="112" fill="#255b58" font-family="Arial, Microsoft YaHei, sans-serif" font-size="52" font-weight="700">杭州 · Slow lake</text>
+  <text x="86" y="165" fill="#3e7770" font-family="Arial, Microsoft YaHei, sans-serif" font-size="24">湖风、茶香与一段不赶路的下午</text>
+</svg>

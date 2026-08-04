@@ -1,0 +1,14 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Chengdu travel illustration</title><desc id="desc">A playful illustration of a panda, bamboo and a red city gate.</desc>
+  <rect width="1200" height="700" fill="#f6efe4"/>
+  <circle cx="960" cy="135" r="66" fill="#f3d8a5"/>
+  <path d="M0 445 C180 380 340 430 500 405 C720 370 965 410 1200 365 V700 H0Z" fill="#b6cfb1"/>
+  <rect x="405" y="250" width="390" height="240" rx="16" fill="#c8553d"/>
+  <path d="M350 275 L600 105 850 275Z" fill="#8f2e2b"/>
+  <rect x="565" y="345" width="70" height="145" fill="#f7d88c"/><rect x="472" y="345" width="56" height="74" fill="#f7d88c"/><rect x="672" y="345" width="56" height="74" fill="#f7d88c"/>
+  <g fill="#2b4241"><ellipse cx="180" cy="515" rx="55" ry="45"/><circle cx="165" cy="463" r="31"/><circle cx="211" cy="463" r="31"/></g>
+  <g fill="#fff"><circle cx="153" cy="458" r="11"/><circle cx="223" cy="458" r="11"/></g><g fill="#2b4241"><circle cx="153" cy="458" r="5"/><circle cx="223" cy="458" r="5"/></g>
+  <path d="M980 515 C930 445 940 330 990 260 M1030 520 C1005 435 1042 355 1082 278" stroke="#4f7f58" stroke-width="20" fill="none" stroke-linecap="round"/>
+  <text x="82" y="112" fill="#7a3930" font-family="Arial, Microsoft YaHei, sans-serif" font-size="52" font-weight="700">成都 · Easy city</text>
+  <text x="86" y="165" fill="#8e594d" font-family="Arial, Microsoft YaHei, sans-serif" font-size="24">熊猫、茶馆和不急着回消息的夜晚</text>
+</svg>

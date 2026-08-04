@@ -1,25 +1,25 @@
-// src/App.jsx
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
-import PortfolioHome from './pages/PortfolioHome';
-import MallApp from './pages/MallApp';
-import TravelApp from './pages/TravelApp';
-import ProductDetail from './pages/ProductDetail';
+import { TaskProvider } from './context/TaskContext';
 import CartPage from './pages/CartPage';
+import MallApp from './pages/MallApp';
+import MemberCenter from './pages/MemberCenter';
+import PortfolioHome from './pages/PortfolioHome';
+import ProductDetail from './pages/ProductDetail';
+import SuccessPage from './pages/SuccessPage';
+import TravelApp from './pages/TravelApp';
 
 function App() {
-  return (
-    <CartProvider>
-      <Routes>
-        <Route path="/" element={<PortfolioHome />} />
-        <Route path="/mall" element={<MallApp />} />
-        <Route path="/travel" element={<TravelApp />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/cart" element={<CartPage />} />
-      </Routes>
-    </CartProvider>
-  );
+  return <CartProvider><TaskProvider><Routes>
+    <Route path="/" element={<PortfolioHome />} />
+    <Route path="/mall" element={<MallApp />} />
+    <Route path="/member" element={<MemberCenter />} />
+    <Route path="/travel" element={<TravelApp />} />
+    <Route path="/product/:id" element={<ProductDetail />} />
+    <Route path="/cart" element={<CartPage />} />
+    <Route path="/checkout" element={<SuccessPage />} />
+  </Routes></TaskProvider></CartProvider>;
 }
 
 export default App;

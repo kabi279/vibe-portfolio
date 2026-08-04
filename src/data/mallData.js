@@ -6,7 +6,7 @@ export const mallData = [
   {
     id: 'P001',
     name: '机场贵宾厅体验券',
-    image: image('lounge.jpg'),
+    image: image('lounge.webp'),
     points: 800,
     price: 0.01,
     category: '出行服务',
@@ -19,7 +19,7 @@ export const mallData = [
   {
     id: 'P002',
     name: '接送机优惠券（50元）',
-    image: image('transfer.jpg'),
+    image: image('transfer.webp'),
     points: 300,
     price: 0.01,
     category: '出行服务',
@@ -32,7 +32,7 @@ export const mallData = [
   {
     id: 'P003',
     name: '酒店升房券',
-    image: image('hotel.jpg'),
+    image: image('hotel.webp'),
     points: 600,
     price: 0.01,
     category: '出行服务',
@@ -47,7 +47,7 @@ export const mallData = [
   {
     id: 'P004',
     name: '爱奇艺VIP周卡',
-    image: image('iqiyi.jpg'),
+    image: image('iqiyi.webp'),
     points: 150,
     price: 0.01,
     category: '数字权益',
@@ -60,7 +60,7 @@ export const mallData = [
   {
     id: 'P005',
     name: '腾讯视频VIP月卡',
-    image: image('tencent.jpg'),
+    image: image('tencent.webp'),
     points: 400,
     price: 0.01,
     category: '数字权益',
@@ -73,7 +73,7 @@ export const mallData = [
   {
     id: 'P006',
     name: '话费充值券（10元）',
-    image: image('phone.jpg'),
+    image: image('phone.webp'),
     points: 200,
     price: 0.01,
     category: '数字权益',
@@ -88,7 +88,7 @@ export const mallData = [
   {
     id: 'P007',
     name: '品牌纸巾组合包',
-    image: image('tissue.jpg'),
+    image: image('tissue.webp'),
     points: 100,
     price: 0.01,
     category: '生活好物',
@@ -101,7 +101,7 @@ export const mallData = [
   {
     id: 'P008',
     name: '便携登山包（20L）',
-    image: image('backpack.jpg'),
+    image: image('backpack.webp'),
     points: 1200,
     price: 0.01,
     category: '生活好物',
